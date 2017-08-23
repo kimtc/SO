@@ -18,10 +18,7 @@ import java.util.Date;
 public class VirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
-    private String functionalityId;
+    private String functionId;
 
     @Getter @Setter
     private String aspectId;

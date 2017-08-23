@@ -2,6 +2,9 @@ package com.pineone.icbms.so.interfaces.sda.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Context contents model.<BR/>
@@ -13,51 +16,60 @@ public class ContextModelContent {
     /**
      * location list
      */
+    @Getter@Setter
     @JsonProperty("loc")
     String locationUri;
 
     /**
-     * functionalityList
+     * functionList
      */
-    @JsonProperty("functionality")
-    String functionalityUri;
+    @Getter@Setter
+    @JsonProperty("function")
+    String functionUri;
 
     /**
      * aspect List
      */
+    @Getter@Setter
     @JsonProperty("aspect")
     String aspectUri;
 
     /**
      * Device List
      */
+    @Getter@Setter
     @JsonProperty("device")
     String deviceUri;
 
     /**
      * ci_sequence
      */
+    @Getter@Setter
     @JsonProperty("ci_seq")
     String ci_sequence_number;
 
     /**
      * ci_id
      */
+    @Getter@Setter
     @JsonProperty("ciid")
     String ci_id;
 
     /**
      * ci_name
      */
+    @Getter@Setter
     @JsonProperty("ciname")
     String ci_name;
 
     /**
      * Last value of Device
      */
+    @Getter@Setter
     @JsonProperty("latest_val")
     String value;
 
+    /*
     public String getValue() {
         return value;
     }
@@ -74,16 +86,16 @@ public class ContextModelContent {
         this.deviceUri = deviceUri;
     }
 
-    public String getFunctionalityUri() {
-        return functionalityUri;
+    public String getFunctionUri() {
+        return functionUri;
     }
 
     public String getLocationUri() {
         return locationUri;
     }
 
-    public void setFunctionalityUri(String functionalityUri) {
-        this.functionalityUri = functionalityUri;
+    public void setFunctionUri(String functionUri) {
+        this.functionUri = functionUri;
     }
 
     public String getAspectUri() {
@@ -121,15 +133,15 @@ public class ContextModelContent {
     public void setCi_name(String ci_name) {
         this.ci_name = ci_name;
     }
-
+*/
 //    @Override
 //    public String toString() {
 //        StringBuffer sb = new StringBuffer(getClass().getSimpleName() + "{");
 //        if(locationUri != null)
 //            sb.append("locationUri: ").append(locationUri);
 //        sb.append("}");
-//        if(functionalityUri != null)
-//            sb.append("functionalityUri: ").append(functionalityUri);
+//        if(functionUri != null)
+//            sb.append("functionUri: ").append(functionUri);
 //        sb.append("}");
 //        if(aspectUri != null)
 //            sb.append("aspectUri: ").append(aspectUri);
@@ -152,12 +164,12 @@ public class ContextModelContent {
 //        return sb.toString();
 //    }
 
-
+/*
     @Override
     public String toString() {
         return "ContextModelContent{" +
                 "locationUri='" + locationUri + '\'' +
-                ", functionalityUri='" + functionalityUri + '\'' +
+                ", functionUri='" + functionUri + '\'' +
                 ", aspectUri='" + aspectUri + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
                 ", ci_sequence_number='" + ci_sequence_number + '\'' +
@@ -166,4 +178,5 @@ public class ContextModelContent {
                 ", value='" + value + '\'' +
                 '}';
     }
+*/
 }

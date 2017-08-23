@@ -1,10 +1,9 @@
 package com.pineone.icbms.so.serviceprocessor.processor.virtualobject.handler;
 
-import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.DeviceControlForMQ;
-import com.pineone.icbms.so.interfaces.messagequeue.tracking.handler.TrackingHandler;
+import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
@@ -14,7 +13,7 @@ import com.pineone.icbms.so.util.collection.CollectionUtils;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.List;
@@ -47,12 +46,19 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
 
         if (virtualObject != null) {
-            IGenericFunctionality functionality = virtualObject.getFunctionality();
+            IGenericFunction function = virtualObject.getFunction();
             IGenericAspect aspect = virtualObject.getAspect();
             String locationUri = (String) virtualObject.getState(Const.LOCATION_URI);
 
-            //get device list from repositoru by function+aspect+location.
-            List<DeviceForDB> deviceForDbList = databaseManager.getDeviceList(functionality.getId(), aspect.getId(), locationUri);
+            // TODO product : get device list from repository by function+aspect+location to use SDA API.
+            //
+            //SdaClient sdaClient = new SdaClient();
+            //List<String> values = sdaClient.retreiveDeviceList(String functionUri, locationUri);
+            //retreiveDeviceControlValues(null, null, locationUri, device.getId());
+
+            // TODO develop :  개발용 데이터베이스에서 조회처리
+            List<DeviceForDB> deviceForDbList = databaseManager.getDeviceList(function.getId(), aspect.getId(), locationUri);
+
             if (deviceForDbList != null && deviceForDbList.size() > 0) {
                 //get virtual device list from device information
                 List<IGenericVirtualDevice> deviceList = ModelMapper.toVirtualDeviceList(deviceForDbList);
@@ -63,7 +69,7 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
                         //tracking
                         getTracking().setProcessId(virtualDevice.getId());
                         getTracking().setProcessName(virtualDevice.getName());
-                        TrackingHandler.send(getTracking());
+                        TrackingProducer.send(getTracking());
 
                         //copy state
                         StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualDevice);
@@ -83,24 +89,24 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
 //                    trackingEntity.clearProcessInfomation();
 //                    trackingEntity.setProcess("Finish");
 //                    trackingEntity.setStatus("F");
-//                    TrackingHandler.send(trackingEntity);
+//                    TrackingProducer.send(trackingEntity);
                 } else {
                     log.error("Virtual device list NOT exist.");
                     getTracking().setProcessId("Virtual list NOT exist");
                     getTracking().setProcessName("");
-                    TrackingHandler.send(getTracking());
+                    TrackingProducer.send(getTracking());
                 }
             } else {
                 log.warn("The device list NOT exist: {}, {}", virtualObject, locationUri);
                 getTracking().setProcessId("device list NOT exist");
                 getTracking().setProcessName("");
-                TrackingHandler.send(getTracking());
+                TrackingProducer.send(getTracking());
             }
         } else {
             log.warn("A VirtualObject is NULL.");
             getTracking().setProcessId("VirtualObject is NULL");
             getTracking().setProcessName("");
-            TrackingHandler.send(getTracking());
+            TrackingProducer.send(getTracking());
 
         }
     }

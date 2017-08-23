@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.interfaces.database.dao;
+package com.pineone.icbms.so.interfaces.database.service;
 
 import com.pineone.icbms.so.interfaces.database.model.*;
 
@@ -27,7 +27,7 @@ public interface IDataBaseStore {
 
     VirtualObjectForDB getVirtualObjectById(String id);
 
-    List<DeviceForDB> getDeviceList(String functionalityUri, String aspect, String locationUri);
+    List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri);
 
     FixedDeviceForDB getFixedDevice(String id);
 

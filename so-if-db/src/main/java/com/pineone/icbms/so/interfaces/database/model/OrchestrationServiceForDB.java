@@ -19,10 +19,7 @@ import java.util.List;
 public class OrchestrationServiceForDB extends CommonEntity {
 
     @Setter @Getter
-    private String id;
-
-    @Setter @Getter
-    private String parent_id;
+    private String parentId;
 
     @Setter @Getter
     private List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList;
@@ -30,22 +27,11 @@ public class OrchestrationServiceForDB extends CommonEntity {
     @Setter @Getter
     private List<VirtualObjectForDB> virtualObjectForDBList;
 
+    @Setter @Getter
+    private List<String> compositeVirtualObjectIds;
 
-//    public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectForDBList() {
-//        return compositeVirtualObjectForDBList;
-//    }
-//
-//    public void setCompositeVirtualObjectForDBList(List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList) {
-//        this.compositeVirtualObjectForDBList = compositeVirtualObjectForDBList;
-//    }
-//
-//    public List<VirtualObjectForDB> getVirtualObjectForDBList() {
-//        return virtualObjectForDBList;
-//    }
-//
-//    public void setVirtualObjectForDBList(List<VirtualObjectForDB> virtualObjectForDBList) {
-//        this.virtualObjectForDBList = virtualObjectForDBList;
-//    }
+    @Setter @Getter
+    private List<String> virtualObjectIds;
 
 }
 
